@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST - EPITECH TECHNOLOGIE - TOULOUSE</title>
+</head>
+<body>
+    <script>
+        /* J'ai choisi d'écrire ce programme en javascript car c'est le langage que je peux le plus manier et qui est à la portée d'un grand nombre de personnes
+
+        J'ai considéré dans l'exercice qu'on se trouve dans un tableau dans lequel on doit représenter une figure symétrique selon l'axe des ordonnées et des abscisses. 
+
+        J'ai pu établir une suite cohérente entre les différents espacements entre les "*". Je vous invite à lire attentivement le code pour mieux comprendre ma logique */
+
+
+        // On demande à l'utilisateur d'entrer la taille de l’étoile
+        var size = prompt('Entrez la taille de votre étoile (Elle doit etre superieur a 0');
+        if(size > 0 && !isNaN(size) && (size % 1 == 0)) {
+            // On calcule respectivement le nombre de ligne et de colonnes
+            var colonnes = (size*6)-1;
+            var lignes = (size*4)+1;
+            // On déclare et on calcule les espacements internes et externes entre les "*" à la figure inscrite dans le tableau de ligne et de colonnes
+            var spc_int = [];
+            var spc_ext = [];
+            // Calcul de l'espacement interne
+            spc_int[0] = 0;
+            spc_int[1] = 1;
+            for (let j = 2; j <= size; j++) {
+                spc_int[j] = spc_int[j-1]+2;
+            }
+            spc_int[spc_int.length] = colonnes - 4;
+            for (let k = spc_int.length; k <= (lignes-1)/2; k++) {
+                spc_int[k] = spc_int[k-1]-2;
+            }
+            // On fait un log
+            console.log(spc_int);
+            // Calcul de l'espacement externe
+            spc_ext[0] = colonnes-1;
+            for (let j = 1; j < size; j++) {
+                spc_ext[j] = spc_ext[j-1]-2;
+            }
+            spc_ext[spc_ext.length] = 0;
+            for (let k = spc_ext.length; k <= size*2; k++) {
+                spc_ext[k] = spc_ext[k-1]+2;
+            }
+            // On fait un log
+            console.log(spc_ext);
+            // On appelle la fonction de dessin sur la première partie symétrique par rapport à l’axe des abscisses
+
+            draw(spc_int, spc_ext);
+            // On inverse les deux tableaux contenant les données d'espacement
+            var reversed_spc_int = spc_int.reverse();
+            var reversed_spc_ext = spc_ext.reverse();
+            // On dessine la deuxieme partie
+            draw(reversed_spc_int.slice(1,reversed_spc_int.length), reversed_spc_ext.slice(1,reversed_spc_ext.length));
+        } else {
+            window.location.reload();
+        }
+        /* Fonction de dessin */
+            
+        function draw(spc_int, spc_ext) {
+            // On parcours le espacements internes par ligne
+            for (let i = 0; i < spc_int.length; i++) { 
+                // On calcule le nombre de point de chaque ligne
+                points = colonnes - (spc_int[i] + spc_ext[i]);
+                index = 1;
+                // On dessine les espacements externes du côté gauche de la figure
+                while (index <= spc_ext[i]/2) {
+                    document.write('<span style="color: #fff">*</span>');
+                    index++;
+                }
+                // On dessine les points de la figure
+                if ((points % 2) == 0) {
+                    for (let j = 1; j <= points/2; j++) {
+                        document.write('*');
+                    }
+                    // On dessine les espacements internes a la figure
+                    for (let k = 1; k <= spc_int[i]; k++) {
+                        document.write('<span style="color: #fff">*</span>');
+                    }
+                    for (let l = 1; l <= points/2; l++) {
+                        document.write('*');
+                    }
+                } else {
+                    document.write('*');
+                }
+                // On dessine les espace externes du côté droit
+                while (index <= spc_ext[i]) {
+                    document.write('<span style="color: #fff">*</span>');
+                    index++;
+                }
+                // Lorsqu’on a fini avec la une ligne on passe à la prochaine
+                document.write('<br>');
+            } 
+        }
+    </script>
+</body>
+</html>
