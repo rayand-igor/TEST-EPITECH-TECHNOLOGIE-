@@ -68,7 +68,7 @@
                 index = 1;
                 // On dessine les espacements externes du côté gauche de la figure
                 while (index <= spc_ext[i]/2) {
-                    document.write('<span style="color: #fff">*</span>');
+                    document.write('<span style="opacity: 0">*</span>');
                     index++;
                 }
                 // On dessine les points de la figure
@@ -78,7 +78,7 @@
                     }
                     // On dessine les espacements internes a la figure
                     for (let k = 1; k <= spc_int[i]; k++) {
-                        document.write('<span style="color: #fff">*</span>');
+                        document.write('<span style="opacity: 0">*</span>');
                     }
                     for (let l = 1; l <= points/2; l++) {
                         document.write('*');
@@ -88,7 +88,7 @@
                 }
                 // On dessine les espace externes du côté droit
                 while (index <= spc_ext[i]) {
-                    document.write('<span style="color: #fff">*</span>');
+                    document.write('<span style="opacity: 0">*</span>');
                     index++;
                 }
                 // Lorsqu’on a fini avec la une ligne on passe à la prochaine
